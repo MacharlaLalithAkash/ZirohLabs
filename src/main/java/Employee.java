@@ -46,9 +46,7 @@ public class Employee {
         return skills;
     }
 
-    public void setSkills(ArrayList<String> skills) {
-        this.skills = skills;
-    }
+    
 
 }
 
