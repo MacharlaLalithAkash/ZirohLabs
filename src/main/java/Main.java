@@ -13,7 +13,12 @@ public class Main {
         // /feed/v1/wikipedia/{language}/onthisday/{type}/{MM}/{DD}
         String json = message.get("https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/births/02/05");
 
+        // Converting json String into POJO
         JSONObject inputJSONObject = new JSONObject(json);
         converter.getKey(inputJSONObject, "originalimage");
+
+        // Converting POJO to JSON
+//        String myJson = inputJSONObject.toString();
+//        System.out.println("\n \n"+myJson);
     }
 }
