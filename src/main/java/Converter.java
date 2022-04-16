@@ -1,23 +1,17 @@
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import java.util.Iterator;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.*;
+import java.util.Iterator;
 
 public class Converter {
 
-//    public Births jsonToObj(String json) {
-//        Gson gson = new Gson();
-//        return gson.fromJson(json, Births.class);
-//    }
 
+    //Prints the values of the provided key value from json.
     public void parseObject(JSONObject json, String key) {
         System.out.println(json.get(key));
     }
 
+    // Getting Key from JSON file. Works recursively and prints all the values using parseObject function.
     public void getKey(JSONObject json, String key) {
 
         boolean exists = json.has(key);
@@ -50,14 +44,4 @@ public class Converter {
             parseObject(json, key);
         }
     }
-
-//    public void objToJson(Object obj) {
-//        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-//
-//        try (FileWriter writer = new FileWriter("D:\\Test\\staff.json")) {
-//            gson.toJson(obj, writer);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }
