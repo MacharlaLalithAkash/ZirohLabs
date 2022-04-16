@@ -11,11 +11,13 @@ public class Main {
         var message = new HttpCallActions();
 
         // /feed/v1/wikipedia/{language}/onthisday/{type}/{MM}/{DD}
-        String json = message.get("https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/births/02/05");
+        String json = message.get("https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/births/11/05");
 
         // Converting json String into POJO
         JSONObject inputJSONObject = new JSONObject(json);
-        converter.getKey(inputJSONObject, "originalimage");
+        converter.getKey(inputJSONObject, "text");
 
+        // Converting POJO to JSON
+        String myJson = inputJSONObject.toString();
     }
 }

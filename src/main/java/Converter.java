@@ -28,8 +28,8 @@ public class Converter {
                     } else if (json.get(nextKeys) instanceof JSONArray) {
                         JSONArray jsonarray = json.getJSONArray(nextKeys);
                         for (int i = 0; i < jsonarray.length(); i++) {
-                            String jsonarrayString = jsonarray.get(i).toString();
-                            JSONObject innerJSOn = new JSONObject(jsonarrayString);
+                            String jsonArrayString = jsonarray.get(i).toString();
+                            JSONObject innerJSOn = new JSONObject(jsonArrayString);
 
                             getKey(innerJSOn, key);
 
