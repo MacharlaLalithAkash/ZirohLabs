@@ -1,12 +1,23 @@
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        var converer = new Converter();
+
+        // Creating Objects of HttpCallActions and Converter to convert JSON to POJO
+        var converter = new Converter();
         var message = new HttpCallActions();
-        String json = message.get("https://f876e36a-72e3-4646-a427-c7ed84f7688a.mock.pstmn.io/users");
-        System.out.println(json);
-        var obj = converer.jsonToObj(json);
+
+        // /feed/v1/wikipedia/{language}/onthisday/{type}/{MM}/{DD}
+        String json = message.get("https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/births/11/05");
+
+        // Converting json String into POJO
+        JSONObject inputJSONObject = new JSONObject(json);
+        converter.getKey(inputJSONObject, "text");
+
+        // Converting POJO to JSON
+        String myJson = inputJSONObject.toString();
     }
 }

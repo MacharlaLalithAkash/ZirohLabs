@@ -1,22 +1,47 @@
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-import java.io.*;
+import java.util.Iterator;
 
 public class Converter {
 
-    public Employee jsonToObj(String json) {
-        Gson gson = new Gson();
-        return gson.fromJson(json, Employee.class);
+
+    //Prints the values of the provided key value from json.
+    public void parseObject(JSONObject json, String key) {
+        System.out.println(json.get(key));
     }
 
-    public void objToJson(Object obj) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    // Getting Key from JSON file. Works recursively and prints all the values using parseObject function.
+    public void getKey(JSONObject json, String key) {
 
-        try (FileWriter writer = new FileWriter("D:\\Test\\staff.json")) {
-            gson.toJson(obj, writer);
-        } catch (IOException e) {
-            e.printStackTrace();
+        boolean exists = json.has(key);
+        Iterator<?> keys;
+        String nextKeys;
+
+        if (!exists) {
+            keys = json.keys();
+            while (keys.hasNext()) {
+                nextKeys = (String) keys.next();
+                try {
+                    if (json.get(nextKeys) instanceof JSONObject) {
+                        getKey(json.getJSONObject(nextKeys), key);
+                    } else if (json.get(nextKeys) instanceof JSONArray) {
+                        JSONArray jsonarray = json.getJSONArray(nextKeys);
+                        for (int i = 0; i < jsonarray.length(); i++) {
+                            String jsonArrayString = jsonarray.get(i).toString();
+                            JSONObject innerJSOn = new JSONObject(jsonArrayString);
+
+                            getKey(innerJSOn, key);
+
+                        }
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            parseObject(json, key);
         }
     }
 }
