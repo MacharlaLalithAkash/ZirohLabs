@@ -2,6 +2,9 @@ import org.json.JSONObject;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 
 public class Main {
 
@@ -11,14 +14,18 @@ public class Main {
         var converter = new Converter();
         var message = new HttpCallActions();
 
-        // AES256 CBC Essentials
-        var aes = new AESUtil(256, "PBKDF2WithHmacSHA256");
-        IvParameterSpec ivParameterSpec = aes.generateIv();
+        // AES256 CBC
+        AESUtil aes = new AESUtil(256);
         SecretKey key = aes.generateKey();
+        IvParameterSpec ivParameterSpec = aes.generateIv();
+        String algorithm = "AES/CBC/PKCS5Padding";
 
         // /feed/v1/wikipedia/{language}/onthisday/{type}/{MM}/{DD}
         // Types: all, selected, births, deaths, holidays, events
         String json = message.get("https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/all/04/17");
+        var cipherText = aes.encrypt(algorithm, json, key, ivParameterSpec);
+        var plainText = aes.decrypt(algorithm, cipherText, key, ivParameterSpec);
+        System.out.println("\n\n\nResult = " + Objects.equals(plainText, json));
 
         // Converting json String into POJO
         JSONObject inputJSONObject = new JSONObject(json);
