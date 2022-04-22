@@ -2,8 +2,6 @@ import org.json.JSONObject;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 
 public class Main {
 
