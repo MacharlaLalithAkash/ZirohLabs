@@ -1,16 +1,17 @@
+import MediaWiki.Converter;
+import MediaWiki.HttpCallActions;
+import Security.AESUtil;
 import org.json.JSONObject;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        // Creating Objects of HttpCallActions and Converter to convert JSON to POJO
+        // Creating Objects of MediaWiki.HttpCallActions and MediaWiki.Converter to convert JSON to POJO
         var converter = new Converter();
         var message = new HttpCallActions();
 
