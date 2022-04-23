@@ -1,3 +1,4 @@
+import DataBase.InsertRecords;
 import MediaWiki.Converter;
 import MediaWiki.HttpCallActions;
 import Security.AESUtil;
@@ -34,5 +35,9 @@ public class Main {
 
         // Converting POJO to JSON
         String myJson = inputJSONObject.toString();
+
+        //Inserting Data
+        var insert = new InsertRecords();
+
     }
 }

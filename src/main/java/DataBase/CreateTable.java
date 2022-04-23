@@ -7,29 +7,26 @@ import java.sql.Statement;
 
 public class CreateTable {
 
-    public void createNewTable() {
+    public void createNewTable(String url, String query) {
         // SQLite connection string  
-        String url = "jdbc:sqlite:C://sqlite/TEST.db";
+         url = "jdbc:sqlite:" + url;
 
         // SQL statement for creating a new table  
-        String sql = """
-                CREATE TABLE IF NOT EXISTS employees (
-                 id integer PRIMARY KEY,
-                 name text NOT NULL,
-                 capacity real
-                );""";
+//        String sql = """
+//                CREATE TABLE IF NOT EXISTS today_history_info (
+//                 date integer PRIMARY KEY,
+//                 encrypted_info text NOT NULL,
+//                );""";
 
         try{
             Connection conn = DriverManager.getConnection(url);
             Statement stmt = conn.createStatement();
-            stmt.execute(sql);
+            stmt.execute(query);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void main(String[] args) {
-        createNewTable();
-    }
+
 
 } 
