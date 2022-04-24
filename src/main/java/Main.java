@@ -1,14 +1,11 @@
-import DataBase.InsertRecords;
 import MediaWiki.Converter;
 import MediaWiki.Dates;
 import MediaWiki.HttpCallActions;
 import Security.AESUtil;
-import org.json.JSONObject;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import java.time.LocalDate;
-import java.util.Objects;
 
 public class Main {
 
