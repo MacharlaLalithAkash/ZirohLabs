@@ -54,7 +54,7 @@ public class DbOperations {
         }
     }
 
-    public String statement(int date){
+    public String statement(long date){
         return "WHERE date="+date;
     }
 

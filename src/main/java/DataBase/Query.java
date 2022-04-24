@@ -15,5 +15,6 @@ public class Query {
                    """;
         db.createNewDatabase(dbName);
         db.executeStatement(dbName, tableCreation);
+//        db.selectAll(dbName,db.statement(1667241000000));
     }
 }

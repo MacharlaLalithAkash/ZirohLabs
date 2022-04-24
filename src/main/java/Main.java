@@ -34,20 +34,22 @@ public class Main {
 
         // Converting dateList into an epochList
         var epochList = epochConverter.toEpochList(dateList);
+        System.out.println(epochList);
+        //1667241000000
 
-        for (int i=0; i<epochList.size(); i++) {
-            String temp = String.valueOf(dateList.get(i));
-            String date = temp.replace("-", "/").substring(5);
-
-
-            // /feed/v1/wikipedia/{language}/onthisday/{type}/{MM}/{DD}
-            // Types: all, selected, births, deaths, holidays, events
-            String json = message.get("https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/births/" + date);
-            System.out.println(i);
-            var cipherText = aes.encrypt(algorithm, json, key, ivParameterSpec);
-            String insertQuery = "INSERT INTO today_history_info (date, encrypted_info) VALUES(" + epochList.get(i) + ",'"+cipherText+")";
-            dbOperations.executeStatement(dbName, insertQuery);
-        }
+//        for (int i=0; i<epochList.size(); i++) {
+//            String temp = String.valueOf(dateList.get(i));
+//            String date = temp.replace("-", "/").substring(5);
+//            // /feed/v1/wikipedia/{language}/onthisday/{type}/{MM}/{DD}
+//            // Types: all, selected, births, deaths, holidays, events
+//            String json = message.get("https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/births/" + date);
+//            System.out.println(i);
+//            var cipherText = aes.encrypt(algorithm, json, key, ivParameterSpec);
+////            String insertQuery = "INSERT INTO today_history_info (date, encrypted_info) VALUES(" + epochList.get(i) + ",'"+cipherText+")";
+//            String insertQuery = "INSERT INTO today_history_info (date, encrypted_info) VALUES(" + i + ",'" + cipherText + "')";
+////            System.out.println(insertQuery);
+//            dbOperations.executeStatement(dbName, insertQuery);
+//        }
 
 
 ////         /feed/v1/wikipedia/{language}/onthisday/{type}/{MM}/{DD}

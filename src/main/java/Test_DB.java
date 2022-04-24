@@ -6,7 +6,7 @@ public class Test_DB {
 
 
         String path = "C:\sqlite";
-        String dbName = "db.db";
+        String dbName = "ONTHISDAY.db";
         var db = new DbOperations(path);
 
         String tableCreation = """
@@ -25,7 +25,7 @@ public class Test_DB {
         }
         //Accessing the particular date from table
 //        db.selectAll(dbName,db.statement(10));
-        db.selectAll(dbName,"");
+//        db.selectAll(dbName,"");
     }
 
 
