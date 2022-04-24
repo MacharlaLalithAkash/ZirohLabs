@@ -19,6 +19,7 @@ public class DbOperations {
         File file = new File(path + fileName);
         if (file.exists()) {
             System.out.println("exists");
+            System.out.println("Hi");
         }
 
         else {
