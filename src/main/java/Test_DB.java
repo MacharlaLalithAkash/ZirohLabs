@@ -21,20 +21,22 @@ public class Test_DB {
                    );
                    """;
         var create = new Create();
-//        create.createNewDatabase(path,fileName);
+        create.createNewDatabase(path,fileName);
+
 //      Created a Table of today_history_info
         var createTable = new CreateTable();
-//        createTable.createNewTable(url, query);
+        createTable.createNewTable(url, query);
+
 //        Insert data
         var insert = new InsertRecords();
-//        for (int i = 0; i < 5; i++) {
-//            String sql = "INSERT INTO today_history_info(date, encrypted_info) VALUES("+i+",'kbdgfdgfkdgfkdlgdfgfdg@#')";
-//            insert.insert(sql);
-//        }
-        String query1 = "SELECT * FROM today_history_info";
+        for (int i = 0; i < 5; i++) {
+            String sql = "INSERT INTO today_history_info(date, encrypted_info) VALUES("+i+",'kbdgfdgfkdgfkdlgdfgfdg@#')";
+            insert.insert(sql);
+        }
+
+        String query1 = "SELECT * FROM today_history_info WHERE";
         var readData = new SelectRecords();
         readData.selectAll(query1);
-
 
     }
 }

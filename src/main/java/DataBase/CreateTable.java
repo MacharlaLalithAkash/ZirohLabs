@@ -7,16 +7,10 @@ import java.sql.Statement;
 
 public class CreateTable {
 
-    public void createNewTable(String url, String query) {
-        // SQLite connection string  
-         url = "jdbc:sqlite:" + url;
+    public void createNewTable(String path, String query) {
 
-        // SQL statement for creating a new table  
-//        String sql = """
-//                CREATE TABLE IF NOT EXISTS today_history_info (
-//                 date integer PRIMARY KEY,
-//                 encrypted_info text NOT NULL,
-//                );""";
+        // Connection URL
+         String url = "jdbc:sqlite:" + path;
 
         try{
             Connection conn = DriverManager.getConnection(url);
@@ -26,7 +20,4 @@ public class CreateTable {
             System.out.println(e.getMessage());
         }
     }
-
-
-
-} 
+}

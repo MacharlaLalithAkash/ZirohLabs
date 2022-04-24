@@ -15,6 +15,7 @@ public class Create {
         try {
             Connection conn = DriverManager.getConnection(url);
             if (conn != null) {
+                System.out.println("Connection established!");
                 DatabaseMetaData meta = conn.getMetaData();
                 System.out.println("The driver name is " + meta.getDriverName());
                 System.out.println("A new database has been created.");

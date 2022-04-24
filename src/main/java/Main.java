@@ -1,11 +1,13 @@
 import DataBase.InsertRecords;
 import MediaWiki.Converter;
+import MediaWiki.Dates;
 import MediaWiki.HttpCallActions;
 import Security.AESUtil;
 import org.json.JSONObject;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Main {
@@ -21,23 +23,45 @@ public class Main {
         SecretKey key = aes.generateKey();
         IvParameterSpec ivParameterSpec = aes.generateIv();
         String algorithm = "AES/CBC/PKCS5Padding";
+        var epochConverter = new Dates();
 
-        // /feed/v1/wikipedia/{language}/onthisday/{type}/{MM}/{DD}
-        // Types: all, selected, births, deaths, holidays, events
-        String json = message.get("https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/all/04/17");
-        var cipherText = aes.encrypt(algorithm, json, key, ivParameterSpec);
-        var plainText = aes.decrypt(algorithm, cipherText, key, ivParameterSpec);
-        System.out.println("\n\n\nResult = " + Objects.equals(plainText, json));
 
-        // Converting json String into POJO
-        JSONObject inputJSONObject = new JSONObject(json);
-        converter.getKey(inputJSONObject, "originalimage");
+        // Getting List of dates in a year
+        var dateList = epochConverter.getDateList(LocalDate.of(2022, 1, 1),
+                LocalDate.of(2022, 12, 31));
 
-        // Converting POJO to JSON
-        String myJson = inputJSONObject.toString();
+        // Converting dateList into an epochList
+        var epochList = epochConverter.toEpochList(dateList);
 
-        //Inserting Data
-        var insert = new InsertRecords();
+        for (int i=0; i<epochList.size(); i++) {
+            String temp = String.valueOf(dateList.get(i));
+            String date = temp.replace("-", "/").substring(5);
+
+            // /feed/v1/wikipedia/{language}/onthisday/{type}/{MM}/{DD}
+            // Types: all, selected, births, deaths, holidays, events
+            String json = message.get("https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/all/" + date);
+            var cipherText = aes.encrypt(algorithm, json, key, ivParameterSpec);
+            System.out.println(i);
+        }
+
+
+////         /feed/v1/wikipedia/{language}/onthisday/{type}/{MM}/{DD}
+////         Types: all, selected, births, deaths, holidays, events
+//
+//        String json = message.get("https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/all/04/17");
+        //var cipherText = aes.encrypt(algorithm, json, key, ivParameterSpec);
+        //var plainText = aes.decrypt(algorithm, cipherText, key, ivParameterSpec);
+
+
+//        // Converting json String into POJO
+//        JSONObject inputJSONObject = new JSONObject(json);
+//        converter.getKey(inputJSONObject, "originalimage");
+//
+//        // Converting POJO to JSON
+//        String myJson = inputJSONObject.toString();
+//
+//        //Inserting Data
+//        var insert = new InsertRecords();
 
     }
 }
