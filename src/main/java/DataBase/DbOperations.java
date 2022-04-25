@@ -41,8 +41,8 @@ public class DbOperations {
     }
 
 
-    //All Insert, Update, Delete, Creation of NewTable (All Query executions)
-    public void executeStatement(String dbName,String query) {
+    // Create Table
+    public void createTable(String dbName, String query) {
         String url = this.url + dbName;
 
         try{
@@ -54,12 +54,27 @@ public class DbOperations {
         }
     }
 
-    public String statement(long date){
-        return "WHERE date="+date;
+
+    public String getValues(String dbName, long key) {
+        String query = "SELECT * FROM today_history_info WHERE date = " + key;
+        String url = this.url + dbName;
+
+        try {
+            Connection conn = DriverManager.getConnection(url);
+            Statement stmt  = conn.createStatement();
+
+            return stmt.executeQuery(query).getString("encrypted_info");
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
-    public void selectAll(String dbName, String select){
-        String query = "SELECT * FROM today_history_info " + select;
+
+
+    public void selectAll(String dbName){
+        String query = "SELECT * FROM today_history_info ";
         String url = this.url + dbName;
 
         try {
@@ -76,8 +91,5 @@ public class DbOperations {
             System.out.println(e.getMessage());
         }
     }
-
-
-
 
 }

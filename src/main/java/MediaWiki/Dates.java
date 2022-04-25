@@ -1,5 +1,6 @@
 package MediaWiki;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,6 +15,10 @@ public class Dates {
     public List<LocalDate> getDateList(LocalDate startDate, LocalDate endDate) {
         return startDate.datesUntil(endDate)
                 .collect(Collectors.toList());
+    }
+
+    public long toEpoch(String date) throws Exception {
+        return dateFormat.parse(String.valueOf(date)).getTime();
     }
 
     public List<Long> toEpochList(List<LocalDate> dateList) throws Exception {

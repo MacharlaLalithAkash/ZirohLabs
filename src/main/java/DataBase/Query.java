@@ -1,5 +1,7 @@
 package DataBase;
 
+import java.sql.SQLException;
+
 public class Query {
     public static void main(String[] args) {
         String path = "C:\\sqlite\\";
@@ -14,7 +16,10 @@ public class Query {
                    );
                    """;
         db.createNewDatabase(dbName);
-        db.executeStatement(dbName, tableCreation);
-//        db.selectAll(dbName,db.statement(1667241000000));
+        db.createTable(dbName, tableCreation);
+//        db.selectAll(dbName, db.statement(1667586600000L));
+//        var x = db.getValues(dbName, 1667586600000L);
+//        System.out.println(x);
+
     }
 }

@@ -1,5 +1,4 @@
 import DataBase.DbOperations;
-import MediaWiki.Converter;
 import MediaWiki.Dates;
 import MediaWiki.HttpCallActions;
 import Security.AESUtil;
@@ -7,15 +6,18 @@ import Security.AESUtil;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import java.time.LocalDate;
+import java.util.Base64;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
 
+        Scanner scanner = new Scanner(System.in);
         String path = "C:\\sqlite\\";
         String dbName =  "ONTHISDAY.db";
+        var db = new DbOperations(path);
 
-        // Creating Objects of MediaWiki.HttpCallActions and MediaWiki.Converter to convert JSON to POJO
 //        var converter = new Converter();
         var message = new HttpCallActions();
         var dbOperations = new DbOperations(path);
@@ -28,28 +30,42 @@ public class Main {
         var epochConverter = new Dates();
 
 
-        // Getting List of dates in a year
-        var dateList = epochConverter.getDateList(LocalDate.of(2022, 11, 1),
-                LocalDate.of(2022, 12, 31));
+        var dateList = epochConverter.getDateList(LocalDate.of(2022, 11, 3),
+                LocalDate.of(2022, 11, 7));
+        System.out.println(dateList);
 
-        // Converting dateList into an epochList
         var epochList = epochConverter.toEpochList(dateList);
         System.out.println(epochList);
-        //1667241000000
 
-//        for (int i=0; i<epochList.size(); i++) {
-//            String temp = String.valueOf(dateList.get(i));
-//            String date = temp.replace("-", "/").substring(5);
-//            // /feed/v1/wikipedia/{language}/onthisday/{type}/{MM}/{DD}
-//            // Types: all, selected, births, deaths, holidays, events
-//            String json = message.get("https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/births/" + date);
-//            System.out.println(i);
-//            var cipherText = aes.encrypt(algorithm, json, key, ivParameterSpec);
-////            String insertQuery = "INSERT INTO today_history_info (date, encrypted_info) VALUES(" + epochList.get(i) + ",'"+cipherText+")";
-//            String insertQuery = "INSERT INTO today_history_info (date, encrypted_info) VALUES(" + i + ",'" + cipherText + "')";
-////            System.out.println(insertQuery);
-//            dbOperations.executeStatement(dbName, insertQuery);
-//        }
+        for (int i=0; i<epochList.size(); i++) {
+
+            var temp = String.valueOf(dateList.get(i));
+            var date = temp.replace("-", "/").substring(5);
+
+            // /feed/v1/wikipedia/{language}/onthisday/{type}/{MM}/{DD}
+            // Types: all, selected, births, deaths, holidays, events
+            var json = message.get("https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/births/" + date);
+
+            var cipherText = aes.encrypt(algorithm, json, key, ivParameterSpec);
+
+            var insertQuery = "INSERT INTO today_history_info (date, encrypted_info) VALUES(" + epochList.get(i) + ",'" + cipherText + "')";
+
+            dbOperations.createTable(dbName, insertQuery);
+            System.out.println(i);
+        }
+
+
+        System.out.print("Enter Date(yyyy-MM-dd): ");
+        var date = scanner.next();
+
+        while (!date.equals("quit")) {
+            var epochKey = epochConverter.toEpoch(date);
+            var retrievedInfo = db.getValues(dbName, epochKey);
+            var plainText = aes.decrypt(algorithm, retrievedInfo, key, ivParameterSpec);
+            System.out.println(plainText);
+            System.out.print("Enter Date(yyyy-MM-dd): ");
+            date = scanner.next();
+        }
 
 
 ////         /feed/v1/wikipedia/{language}/onthisday/{type}/{MM}/{DD}
