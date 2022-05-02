@@ -8,7 +8,16 @@ public class Titles {
    @SerializedName("canonical")
    String canonical;
 
-   @SerializedName("normalized")
+    public Titles(String canonical, String normalized, String display) {
+        this.canonical = canonical;
+        this.normalized = normalized;
+        this.display = display;
+    }
+
+    public Titles() {
+    }
+
+    @SerializedName("normalized")
    String normalized;
 
    @SerializedName("display")

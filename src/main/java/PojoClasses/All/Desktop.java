@@ -11,7 +11,17 @@ public class Desktop {
    @SerializedName("revisions")
    String revisions;
 
-   @SerializedName("edit")
+    public Desktop() {
+    }
+
+    public Desktop(String page, String revisions, String edit, String talk) {
+        this.page = page;
+        this.revisions = revisions;
+        this.edit = edit;
+        this.talk = talk;
+    }
+
+    @SerializedName("edit")
    String edit;
 
    @SerializedName("talk")

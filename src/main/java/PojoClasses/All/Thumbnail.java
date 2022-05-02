@@ -11,7 +11,16 @@ public class Thumbnail {
    @SerializedName("width")
    int width;
 
-   @SerializedName("height")
+    public Thumbnail() {
+    }
+
+    public Thumbnail(String source, int width, int height) {
+        this.source = source;
+        this.width = width;
+        this.height = height;
+    }
+
+    @SerializedName("height")
    int height;
 
 

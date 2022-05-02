@@ -8,7 +8,17 @@ public class Mobile {
    @SerializedName("page")
    String page;
 
-   @SerializedName("revisions")
+    public Mobile(String page, String revisions, String edit, String talk) {
+        this.page = page;
+        this.revisions = revisions;
+        this.edit = edit;
+        this.talk = talk;
+    }
+
+    public Mobile() {
+    }
+
+    @SerializedName("revisions")
    String revisions;
 
    @SerializedName("edit")

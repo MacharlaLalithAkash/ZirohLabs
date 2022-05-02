@@ -12,8 +12,14 @@ public class Selected {
    @SerializedName("pages")
    List<Pages> pages;
 
-   @SerializedName("year")
-   int year;
+    @SerializedName("year")
+    int year;
+
+    public Selected(String text, List<Pages> pages, int year) {
+        this.text = text;
+        this.pages = pages;
+        this.year = year;
+    }
 
 
     public void setText(String text) {

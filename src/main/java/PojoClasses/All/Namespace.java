@@ -8,7 +8,15 @@ public class Namespace {
    @SerializedName("id")
    int id;
 
-   @SerializedName("text")
+    public Namespace(int id, String text) {
+        this.id = id;
+        this.text = text;
+    }
+
+    public Namespace() {
+    }
+
+    @SerializedName("text")
    String text;
 
 

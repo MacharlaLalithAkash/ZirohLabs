@@ -8,7 +8,15 @@ public class Coordinates {
    @SerializedName("lat")
    double lat;
 
-   @SerializedName("lon")
+    public Coordinates(double lat, double lon) {
+        this.lat = lat;
+        this.lon = lon;
+    }
+
+    public Coordinates() {
+    }
+
+    @SerializedName("lon")
    double lon;
 
 

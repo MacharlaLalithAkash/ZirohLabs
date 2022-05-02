@@ -11,9 +11,17 @@ public class Originalimage {
    @SerializedName("width")
    int width;
 
-   @SerializedName("height")
+    public Originalimage() {
+    }
+
+    @SerializedName("height")
    int height;
 
+    public Originalimage(String source, int width, int height) {
+        this.source = source;
+        this.width = width;
+        this.height = height;
+    }
 
     public void setSource(String source) {
         this.source = source;

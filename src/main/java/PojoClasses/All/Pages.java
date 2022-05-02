@@ -15,7 +15,34 @@ public class Pages {
    @SerializedName("displaytitle")
    String displaytitle;
 
-   @SerializedName("namespace")
+    public Pages() {
+    }
+
+    public Pages(String type, String title, String displaytitle, Namespace namespace, String wikibaseItem, Titles titles, int pageid, Thumbnail thumbnail, Originalimage originalimage, String lang, String dir, String revision, String tid, Date timestamp, String description, String descriptionSource, Coordinates coordinates, ContentUrls contentUrls, String extract, String extractHtml, String normalizedtitle) {
+        this.type = type;
+        this.title = title;
+        this.displaytitle = displaytitle;
+        this.namespace = namespace;
+        this.wikibaseItem = wikibaseItem;
+        this.titles = titles;
+        this.pageid = pageid;
+        this.thumbnail = thumbnail;
+        this.originalimage = originalimage;
+        this.lang = lang;
+        this.dir = dir;
+        this.revision = revision;
+        this.tid = tid;
+        this.timestamp = timestamp;
+        this.description = description;
+        this.descriptionSource = descriptionSource;
+        this.coordinates = coordinates;
+        this.contentUrls = contentUrls;
+        this.extract = extract;
+        this.extractHtml = extractHtml;
+        this.normalizedtitle = normalizedtitle;
+    }
+
+    @SerializedName("namespace")
    Namespace namespace;
 
    @SerializedName("wikibase_item")

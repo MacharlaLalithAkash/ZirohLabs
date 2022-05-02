@@ -8,7 +8,15 @@ public class ContentUrls {
    @SerializedName("desktop")
    Desktop desktop;
 
-   @SerializedName("mobile")
+    public ContentUrls(Desktop desktop, Mobile mobile) {
+        this.desktop = desktop;
+        this.mobile = mobile;
+    }
+
+    public ContentUrls() {
+    }
+
+    @SerializedName("mobile")
    Mobile mobile;
 
 
