@@ -18,7 +18,7 @@ public class Main {
         String dbName =  "ONTHISDAY.db";
         var db = new DbOperations(path);
 
-//        var converter = new Converter();
+//        var converter = new ConverterGeneric();
         var message = new HttpCallActions();
         var dbOperations = new DbOperations(path);
 
@@ -30,7 +30,7 @@ public class Main {
         var epochConverter = new Dates();
 
 
-        var dateList = epochConverter.getDateList(LocalDate.of(2022, 11, 3),
+        var dateList = epochConverter.getDateList(LocalDate.of(2022, 11, 4),
                 LocalDate.of(2022, 11, 7));
         System.out.println(dateList);
 
