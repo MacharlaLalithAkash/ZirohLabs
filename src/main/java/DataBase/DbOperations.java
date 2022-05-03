@@ -106,7 +106,7 @@ public class DbOperations {
     
     public void insert(String dbName, long epochDate, String data) {
         String query = "INSERT INTO today_history_info (date, encrypted_info) VALUES(" + epochDate + ",'" + data + "')";
-        executeQueries(dbName, query);
+
     }
 
 }

@@ -35,6 +35,12 @@ public class Main {
         // See converter class to use dateList, epochList
         var epochDate = epochConverter.toEpoch("2022-11-05");
 
+        boolean status = false;
+
+        String queryCheck = "SELECT exists (SELECT 1 FROM table WHERE column = <value> LIMIT 1);";
+
+
+
         dbOperations.insert(dbName, epochDate, cipherJson);
 
         var retrievedInfo = dbOperations.getValues(dbName, epochDate);
