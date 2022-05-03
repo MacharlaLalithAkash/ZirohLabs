@@ -33,13 +33,18 @@ public class Main {
 
         // Considered current year to just generate an epoch key
         // See converter class to use dateList, epochList
-        var epochDate = epochConverter.toEpoch("2022-11-05");
+
+        var date = "2022-11-05";
+
+        var epochDate = epochConverter.toEpoch(date);
 
         boolean status = false;
 
-        String queryCheck = "SELECT exists (SELECT 1 FROM table WHERE column = <value> LIMIT 1);";
+        String queryCheck = "SELECT date\n" +
+                "FROM today_history_info\n" +
+                "WHERE EXISTS (SELECT date FROM today_history_info WHERE today_history_info.date =  "+epochDate+");";
 
-
+        dbOperations.executeQueries(dbName, queryCheck);
 
         dbOperations.insert(dbName, epochDate, cipherJson);
 
