@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        String path = "C:\\sqlite\\";
+        String path = "src/main/java/DataBase/";
         String dbName =  "TEST.db";
 
         var dbOperations = new DbOperations(path);
