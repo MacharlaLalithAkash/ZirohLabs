@@ -1,9 +1,9 @@
-package PojoClasses.All;
+package PojoClasses.Events;
 
 import com.google.gson.annotations.SerializedName;
 
    
-public class Thumbnail {
+public class Originalimage {
 
    @SerializedName("source")
    String source;
@@ -11,7 +11,7 @@ public class Thumbnail {
    @SerializedName("width")
    int width;
 
-    @SerializedName("height")
+   @SerializedName("height")
    int height;
 
 

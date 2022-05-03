@@ -12,19 +12,22 @@ public class DbOperations {
         this.path = path;
     }
 
+    // Creating OnThisDay database. This is specific to OnThisDay!
+    public void createOnThisDayDb(String dbName) {
+        createNewDatabase(dbName);
+        createTable(dbName);
+    }
 
-    public void createNewDatabase(String fileName) {
+    private void createNewDatabase(String fileName) {
         String url = this.url + fileName;
 
         File file = new File(path + fileName);
         if (file.exists()) {
-            System.out.println("exists");
-            System.out.println("Hi");
+            System.out.println("DataBase Already Exists!");
         }
 
         else {
             try {
-                System.out.println(url);
                 Connection conn = DriverManager.getConnection(url);
                 if (conn != null) {
 
@@ -40,9 +43,20 @@ public class DbOperations {
         }
     }
 
+    private void createTable(String dbName) {
+        String tableCreationQuerie = """
+                CREATE TABLE IF NOT EXISTS today_history_info(
+                   date INTEGER,
+                   encrypted_info VARCHAR,
+                   PRIMARY KEY(date)
+                   );
+                   """;
+        executeQueries(dbName, tableCreationQuerie);
+    }
+
 
     // Create Table
-    public void createTable(String dbName, String query) {
+    public void executeQueries(String dbName, String query) {
         String url = this.url + dbName;
 
         try{
@@ -71,8 +85,6 @@ public class DbOperations {
         }
     }
 
-
-
     public void selectAll(String dbName){
         String query = "SELECT * FROM today_history_info ";
         String url = this.url + dbName;
@@ -90,6 +102,11 @@ public class DbOperations {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+    
+    public void insert(String dbName, long epochDate, String data) {
+        String query = "INSERT INTO today_history_info (date, encrypted_info) VALUES(" + epochDate + ",'" + data + "')";
+        executeQueries(dbName, query);
     }
 
 }

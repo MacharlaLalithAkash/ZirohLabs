@@ -1,4 +1,4 @@
-package PojoClasses.All;
+package PojoClasses.Selected;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -8,7 +8,7 @@ public class Titles {
    @SerializedName("canonical")
    String canonical;
 
-    @SerializedName("normalized")
+   @SerializedName("normalized")
    String normalized;
 
    @SerializedName("display")

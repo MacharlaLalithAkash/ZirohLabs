@@ -1,14 +1,14 @@
-package PojoClasses.All;
+package PojoClasses.Deaths;
 
 import com.google.gson.annotations.SerializedName;
 
    
-public class Mobile {
+public class Desktop {
 
    @SerializedName("page")
    String page;
 
-    @SerializedName("revisions")
+   @SerializedName("revisions")
    String revisions;
 
    @SerializedName("edit")

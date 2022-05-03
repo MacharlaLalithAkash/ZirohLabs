@@ -12,6 +12,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.stream.Collectors;
 
+/*
+Class is Responsible to just query MediaWiki server and return the json string
+ */
+
 public class HttpCallActions  {
     public String get(String link) throws IOException {
         HttpClient client = HttpClientBuilder.create()

@@ -1,4 +1,4 @@
-package PojoClasses.All;
+package PojoClasses.Selected;
 import java.util.Date;
 
 import com.google.gson.annotations.SerializedName;
@@ -15,7 +15,7 @@ public class Pages {
    @SerializedName("displaytitle")
    String displaytitle;
 
-    @SerializedName("namespace")
+   @SerializedName("namespace")
    Namespace namespace;
 
    @SerializedName("wikibase_item")

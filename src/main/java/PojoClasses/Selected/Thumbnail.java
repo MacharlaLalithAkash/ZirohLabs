@@ -1,4 +1,4 @@
-package PojoClasses.All;
+package PojoClasses.Selected;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -11,7 +11,7 @@ public class Thumbnail {
    @SerializedName("width")
    int width;
 
-    @SerializedName("height")
+   @SerializedName("height")
    int height;
 
 

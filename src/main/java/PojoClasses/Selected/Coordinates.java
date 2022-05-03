@@ -1,4 +1,4 @@
-package PojoClasses.All;
+package PojoClasses.Selected;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -8,7 +8,7 @@ public class Coordinates {
    @SerializedName("lat")
    double lat;
 
-    @SerializedName("lon")
+   @SerializedName("lon")
    double lon;
 
 

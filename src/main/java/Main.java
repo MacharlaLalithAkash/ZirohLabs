@@ -1,90 +1,47 @@
 import DataBase.DbOperations;
+import MediaWiki.Converter;
 import MediaWiki.Dates;
 import MediaWiki.HttpCallActions;
 import Security.AESUtil;
-import org.json.JSONObject;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
-import java.time.LocalDate;
-import java.util.Base64;
-import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        Scanner scanner = new Scanner(System.in);
         String path = "C:\\sqlite\\";
-        String dbName =  "ONTHISDAY.db";
-        var db = new DbOperations(path);
+        String dbName =  "TEST.db";
 
-//        var converter = new ConverterGeneric();
-        var message = new HttpCallActions();
         var dbOperations = new DbOperations(path);
+        var client = new HttpCallActions();
+        var epochConverter = new Dates();
+        var pojoConverter = new Converter();
 
-        // AES256 CBC
         AESUtil aes = new AESUtil(256);
         SecretKey key = aes.generateKey();
         IvParameterSpec ivParameterSpec = aes.generateIv();
         String algorithm = "AES/CBC/PKCS5Padding";
-        var epochConverter = new Dates();
 
+        dbOperations.createOnThisDayDb(dbName);
 
-        var dateList = epochConverter.getDateList(LocalDate.of(2022, 11, 4),
-                LocalDate.of(2022, 11, 7));
-        System.out.println(dateList);
+        // /feed/v1/wikipedia/{language}/onthisday/{type}/{MM}/{DD}
+        // Types: all, selected, births, deaths, holidays, events
+        var json = client.get("https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/births/11/05");
+        var cipherJson = aes.encrypt(algorithm, json, key, ivParameterSpec);
 
-        var epochList = epochConverter.toEpochList(dateList);
-        System.out.println(epochList);
+        // Considered current year to just generate an epoch key
+        // See converter class to use dateList, epochList
+        var epochDate = epochConverter.toEpoch("2022-11-05");
 
-        for (int i=0; i<epochList.size(); i++) {
+        dbOperations.insert(dbName, epochDate, cipherJson);
 
-            var temp = String.valueOf(dateList.get(i));
-            var date = temp.replace("-", "/").substring(5);
+        var retrievedInfo = dbOperations.getValues(dbName, epochDate);
 
-            // /feed/v1/wikipedia/{language}/onthisday/{type}/{MM}/{DD}
-            // Types: all, selected, births, deaths, holidays, events
-            var json = message.get("https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/births/" + date);
+        var plainJson = aes.decrypt(algorithm, retrievedInfo, key, ivParameterSpec);
 
-            var cipherText = aes.encrypt(algorithm, json, key, ivParameterSpec);
+        System.out.println(pojoConverter.birthsPojo(plainJson).getBirths().get(0).getText());
 
-            var insertQuery = "INSERT INTO today_history_info (date, encrypted_info) VALUES(" + epochList.get(i) + ",'" + cipherText + "')";
-
-            dbOperations.createTable(dbName, insertQuery);
-            System.out.println(i);
-        }
-
-
-        System.out.print("Enter Date(yyyy-MM-dd): ");
-        var date = scanner.next();
-
-        while (!date.equals("quit")) {
-            var epochKey = epochConverter.toEpoch(date);
-            var retrievedInfo = db.getValues(dbName, epochKey);
-            var plainText = aes.decrypt(algorithm, retrievedInfo, key, ivParameterSpec);
-            System.out.println(plainText);
-            System.out.print("Enter Date(yyyy-MM-dd): ");
-            date = scanner.next();
-        }
-
-
-////         /feed/v1/wikipedia/{language}/onthisday/{type}/{MM}/{DD}
-////         Types: all, selected, births, deaths, holidays, events
-//
-//        String json = message.get("https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/all/04/17");
-        //var cipherText = aes.encrypt(algorithm, json, key, ivParameterSpec);
-        //var plainText = aes.decrypt(algorithm, cipherText, key, ivParameterSpec);
-
-
-//        // Converting json String into POJO
-//        JSONObject inputJSONObject = new JSONObject(json);
-//        converter.getKey(inputJSONObject, "originalimage");
-//
-//        // Converting POJO to JSON
-//        String myJson = inputJSONObject.toString();
-//
-//        //Inserting Data
-//        var insert = new InsertRecords();
     }
 }

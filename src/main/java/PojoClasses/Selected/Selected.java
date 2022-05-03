@@ -1,4 +1,4 @@
-package PojoClasses.All;
+package PojoClasses.Selected;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
@@ -12,8 +12,8 @@ public class Selected {
    @SerializedName("pages")
    List<Pages> pages;
 
-    @SerializedName("year")
-    int year;
+   @SerializedName("year")
+   int year;
 
 
     public void setText(String text) {

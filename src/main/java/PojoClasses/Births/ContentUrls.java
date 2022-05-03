@@ -1,4 +1,4 @@
-package PojoClasses.All;
+package PojoClasses.Births;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -8,7 +8,7 @@ public class ContentUrls {
    @SerializedName("desktop")
    Desktop desktop;
 
-    @SerializedName("mobile")
+   @SerializedName("mobile")
    Mobile mobile;
 
 

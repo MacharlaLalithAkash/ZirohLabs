@@ -9,6 +9,10 @@ import java.security.SecureRandom;
 import java.security.spec.KeySpec;
 import java.util.Base64;
 
+/*
+AES256 CBC encryption of data
+ */
+
 public class AESUtil {
     private final int n;
 

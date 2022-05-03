@@ -1,4 +1,4 @@
-package PojoClasses.All;
+package PojoClasses.Births;
 import java.util.Date;
 
 import com.google.gson.annotations.SerializedName;
@@ -15,7 +15,7 @@ public class Pages {
    @SerializedName("displaytitle")
    String displaytitle;
 
-    @SerializedName("namespace")
+   @SerializedName("namespace")
    Namespace namespace;
 
    @SerializedName("wikibase_item")
@@ -53,9 +53,6 @@ public class Pages {
 
    @SerializedName("description_source")
    String descriptionSource;
-
-   @SerializedName("coordinates")
-   Coordinates coordinates;
 
    @SerializedName("content_urls")
    ContentUrls contentUrls;
@@ -180,13 +177,6 @@ public class Pages {
     }
     public String getDescriptionSource() {
         return descriptionSource;
-    }
-    
-    public void setCoordinates(Coordinates coordinates) {
-        this.coordinates = coordinates;
-    }
-    public Coordinates getCoordinates() {
-        return coordinates;
     }
     
     public void setContentUrls(ContentUrls contentUrls) {
